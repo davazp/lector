@@ -1,3 +1,4 @@
+const Promise = require("bluebird");
 const Reader = require("../");
 const { ask } = Reader;
 
@@ -27,4 +28,18 @@ test("readers .prop method can access a property from the previous result", () =
   return r.run({ x: { y: 42 } }).then(result => {
     expect(result).toBe(42);
   });
+});
+
+test("integrates with promises", () => {
+  function f() {
+    return ask.then(x => {
+      return Promise.delay(50).return(x * x);
+    });
+  }
+
+  return f()
+    .run(10)
+    .then(result => {
+      expect(result).toBe(100);
+    });
 });
