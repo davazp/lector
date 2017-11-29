@@ -11,6 +11,9 @@
   "lint-staged": {
     "*.{js,json,css}": ["prettier --write", "git add"]
   },
+  "engines": {
+    "node": ">=4.3.2"
+  },
   "keywords": [],
   "author": "David Vázquez Púa <davazp@gmail.com>",
   "license": "MIT",
