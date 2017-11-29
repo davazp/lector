@@ -4,12 +4,14 @@
   "description": "Contextual asynchronous library for Javascript",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "mocha"
   },
   "keywords": [],
   "author": "David Vázquez Púa <davazp@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^4.12.0",
     "mocha": "^4.0.1"
   }
 }
