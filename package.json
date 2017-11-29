@@ -1,6 +1,6 @@
 {
   "name": "asyncReader",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Contextual asynchronous library for Javascript",
   "main": "lib/index.js",
   "scripts": {
