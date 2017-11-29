@@ -12,7 +12,7 @@
     "*.{js,json,css}": ["prettier --write", "git add"]
   },
   "engines": {
-    "node": ">=4.3.2"
+    "node": ">=4.2.0"
   },
   "keywords": [],
   "repository": "github:davazp/asyncReader",
