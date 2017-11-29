@@ -19,3 +19,9 @@ test("readers .then method can return other readers", async function() {
   const result = await r.run(10);
   assert.equal(result, 100);
 });
+
+test("readers .prop method can access a property from the previous result", async function() {
+  const r = ask.prop("x").prop("y");
+  const result = await r.run({ x: { y: 42 } });
+  assert.equal(result, 42);
+});
