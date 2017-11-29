@@ -2,7 +2,7 @@
   "name": "asyncReader",
   "version": "1.0.0",
   "description": "Contextual asynchronous library for Javascript",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint && jest",
