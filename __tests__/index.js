@@ -1,26 +1,30 @@
 const Reader = require("../");
 const { ask } = Reader;
 
-test("identity reader returns the context", async () => {
-  const result = await ask.run({ x: 10 });
-  expect(result).toEqual({ x: 10 });
+test("identity reader returns the context", () => {
+  return ask.run({ x: 10 }).then(result => {
+    expect(result).toEqual({ x: 10 });
+  });
 });
 
-test("readers compose properly", async () => {
+test("readers compose properly", () => {
   const x = ask.then(c => c.x);
   const y = x.then(x => x.y);
-  const result = await y.run({ x: { y: 2 } });
-  expect(result).toBe(2);
+  return y.run({ x: { y: 2 } }).then(result => {
+    expect(result).toBe(2);
+  });
 });
 
-test("readers .then method can return other readers", async () => {
+test("readers .then method can return other readers", () => {
   const r = ask.then(c => Reader.of(c * c));
-  const result = await r.run(10);
-  expect(result).toBe(100);
+  return r.run(10).then(result => {
+    expect(result).toBe(100);
+  });
 });
 
-test("readers .prop method can access a property from the previous result", async () => {
+test("readers .prop method can access a property from the previous result", () => {
   const r = ask.prop("x").prop("y");
-  const result = await r.run({ x: { y: 42 } });
-  expect(result).toBe(42);
+  return r.run({ x: { y: 42 } }).then(result => {
+    expect(result).toBe(42);
+  });
 });
