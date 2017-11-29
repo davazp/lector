@@ -8,8 +8,12 @@ module.exports = {
   "parserOptions": {
     "ecmaVersion": 2017
   },
-  "extends": "eslint:recommended",
+  "plugins": [
+    "prettier"
+  ],
+  "extends": ["eslint:recommended", "prettier"],
   rules: {
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "prettier/prettier": "error"
   }
 };
