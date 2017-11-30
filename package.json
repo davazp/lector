@@ -14,12 +14,14 @@
   "engines": {
     "node": ">=6.4.0"
   },
-  "files": [
-    "lib/"
-  ],
-  "keywords": [],
+  "files": ["lib/"],
+  "keywords": ["reader", "monad", "context", "coroutine", "promises"],
   "repository": "github:davazp/asyncReader",
-  "author": "David Vázquez Púa <davazp@gmail.com>",
+  "author": {
+    "name": "David Vázquez Púa",
+    "email": "davazp@gmail.com",
+    "url": "https://github.com/davazp/"
+  },
   "license": "MIT",
   "devDependencies": {
     "bluebird": "^3.5.1",
