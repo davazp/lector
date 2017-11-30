@@ -9,5 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - First version of the library. Basic `Reader` class and methods
+- Implement `Reader.coroutine` function
 
 [Unreleased]: https://github.com/davazp/asyncReader/compare/v0.1.0...HEAD
