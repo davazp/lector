@@ -14,6 +14,9 @@
   "engines": {
     "node": ">=6.4.0"
   },
+  "files": [
+    "lib/"
+  ],
   "keywords": [],
   "repository": "github:davazp/asyncReader",
   "author": "David Vázquez Púa <davazp@gmail.com>",
