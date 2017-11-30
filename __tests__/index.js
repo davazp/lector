@@ -52,12 +52,59 @@ test("errors in the handlers will reject the promise", () => {
   return expect(r.run()).rejects.toBe(err);
 });
 
+test("resolve nested readers properly", () => {
+  const err = new Error("foo");
+
+  function f1() {
+    return ask.then(_ => {
+      return Promise.reject(err);
+    });
+  }
+
+  function f2() {
+    return ask.then(() => f1());
+  }
+
+  function f3() {
+    return ask.then(() => f2());
+  }
+
+  return expect(f3().run()).rejects.toBe(err);
+});
+
 describe("coroutine", () => {
   test("it builds a proper reader", () => {
     const r = coroutine(function*() {
       return 10;
     });
     expect(r).toBeInstanceOf(Reader);
+  });
+
+  test("reader will resolved to the returned value from the coroutine", () => {
+    const r = coroutine(function*() {
+      return "foo";
+    });
+    return r.run().then(result => {
+      expect(result).toBe("foo");
+    });
+  });
+
+  test("returned promises in the coroutine will be resolved automatically", () => {
+    const r = coroutine(function*() {
+      return Promise.resolve(20);
+    });
+    return r.run().then(result => {
+      expect(result).toBe(20);
+    });
+  });
+
+  test("returned readers in the coroutine will be resolved automatically", () => {
+    const r = coroutine(function*() {
+      return Reader.of("lisp");
+    });
+    return r.run().then(result => {
+      expect(result).toBe("lisp");
+    });
   });
 
   test("yield returns the resolved value of the context", () => {
@@ -68,6 +115,16 @@ describe("coroutine", () => {
 
     return r.run(10).then(result => {
       return expect(result).toBe(100);
+    });
+  });
+
+  test("can yield a reader created with Reader.of", () => {
+    const r = coroutine(function*() {
+      const value = yield Reader.of(3);
+      return value;
+    });
+    return r.run().then(result => {
+      expect(result).toBe(3);
     });
   });
 
@@ -162,5 +219,74 @@ describe("coroutine", () => {
     return r.run().then(result => {
       expect(result).toBe(10);
     });
+  });
+
+  test("yield handles errors from nested readers", () => {
+    const err = new Error("foo");
+
+    function f() {
+      return new Reader(_ => Promise.reject(err));
+    }
+
+    const r = coroutine(function*() {
+      let result;
+      try {
+        yield f();
+        result = 2;
+      } catch (err) {
+        result = 10;
+      }
+      return result;
+    });
+
+    return r.run().then(result => {
+      expect(result).toBe(10);
+    });
+  });
+
+  test("can catch errors from a returned reader", () => {
+    const err = new Error("foo");
+
+    function f() {
+      return new Reader(_ => Promise.reject(err));
+    }
+
+    const r = coroutine(function*() {
+      try {
+        return f();
+      } catch (err) {
+        return 1234;
+      }
+    });
+
+    return expect(r.run()).rejects.toBe(err);
+  });
+
+  test("can catch errors from a nested readers", () => {
+    const err = new Error("foo");
+
+    function f1() {
+      return ask.then(_ => {
+        return Promise.reject(err);
+      });
+    }
+
+    function f2() {
+      return ask.then(() => f1());
+    }
+
+    function f3() {
+      return ask.then(() => f2());
+    }
+
+    const r = coroutine(function*() {
+      try {
+        return f3();
+      } catch (err) {
+        return 1234;
+      }
+    });
+
+    return expect(r.run()).rejects.toBe(err);
   });
 });
