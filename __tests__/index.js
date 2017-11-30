@@ -77,34 +77,40 @@ describe("coroutine", () => {
     const r = coroutine(function*() {
       return 10;
     });
-    expect(r).toBeInstanceOf(Reader);
+    expect(r()).toBeInstanceOf(Reader);
   });
 
   test("reader will resolved to the returned value from the coroutine", () => {
     const r = coroutine(function*() {
       return "foo";
     });
-    return r.run().then(result => {
-      expect(result).toBe("foo");
-    });
+    return r()
+      .run()
+      .then(result => {
+        expect(result).toBe("foo");
+      });
   });
 
   test("returned promises in the coroutine will be resolved automatically", () => {
     const r = coroutine(function*() {
       return Promise.resolve(20);
     });
-    return r.run().then(result => {
-      expect(result).toBe(20);
-    });
+    return r()
+      .run()
+      .then(result => {
+        expect(result).toBe(20);
+      });
   });
 
   test("returned readers in the coroutine will be resolved automatically", () => {
     const r = coroutine(function*() {
       return Reader.of("lisp");
     });
-    return r.run().then(result => {
-      expect(result).toBe("lisp");
-    });
+    return r()
+      .run()
+      .then(result => {
+        expect(result).toBe("lisp");
+      });
   });
 
   test("yield returns the resolved value of the context", () => {
@@ -113,9 +119,11 @@ describe("coroutine", () => {
       return ctx * ctx;
     });
 
-    return r.run(10).then(result => {
-      return expect(result).toBe(100);
-    });
+    return r()
+      .run(10)
+      .then(result => {
+        return expect(result).toBe(100);
+      });
   });
 
   test("can yield a reader created with Reader.of", () => {
@@ -123,9 +131,11 @@ describe("coroutine", () => {
       const value = yield Reader.of(3);
       return value;
     });
-    return r.run().then(result => {
-      expect(result).toBe(3);
-    });
+    return r()
+      .run()
+      .then(result => {
+        expect(result).toBe(3);
+      });
   });
 
   test("yield will also wait for promises", () => {
@@ -139,9 +149,11 @@ describe("coroutine", () => {
       return ctx * value;
     });
 
-    return r.run(10).then(result => {
-      return expect(result).toBe(100);
-    });
+    return r()
+      .run(10)
+      .then(result => {
+        return expect(result).toBe(100);
+      });
   });
 
   test("errors in the generator function will reject the promise", () => {
@@ -151,7 +163,7 @@ describe("coroutine", () => {
       throw err;
     });
 
-    return expect(r.run()).rejects.toBe(err);
+    return expect(r().run()).rejects.toBe(err);
   });
 
   test("reject promises will reject the resulting reader promise", () => {
@@ -165,7 +177,7 @@ describe("coroutine", () => {
       yield f();
     });
 
-    return expect(r.run()).rejects.toBe(err);
+    return expect(r().run()).rejects.toBe(err);
   });
 
   test("errors in the yielded readers will reject the promise", () => {
@@ -181,7 +193,7 @@ describe("coroutine", () => {
       yield f();
     });
 
-    return expect(r.run()).rejects.toBe(err);
+    return expect(r().run()).rejects.toBe(err);
   });
 
   test("rejected promise in the yielded readers will reject the promise", () => {
@@ -195,7 +207,7 @@ describe("coroutine", () => {
       yield f();
     });
 
-    return expect(r.run()).rejects.toBe(err);
+    return expect(r().run()).rejects.toBe(err);
   });
 
   test("errors in readers can be handled", () => {
@@ -216,9 +228,11 @@ describe("coroutine", () => {
       return result;
     });
 
-    return r.run().then(result => {
-      expect(result).toBe(10);
-    });
+    return r()
+      .run()
+      .then(result => {
+        expect(result).toBe(10);
+      });
   });
 
   test("yield handles errors from nested readers", () => {
@@ -239,9 +253,11 @@ describe("coroutine", () => {
       return result;
     });
 
-    return r.run().then(result => {
-      expect(result).toBe(10);
-    });
+    return r()
+      .run()
+      .then(result => {
+        expect(result).toBe(10);
+      });
   });
 
   test("can catch errors from a returned reader", () => {
@@ -259,7 +275,7 @@ describe("coroutine", () => {
       }
     });
 
-    return expect(r.run()).rejects.toBe(err);
+    return expect(r().run()).rejects.toBe(err);
   });
 
   test("can catch errors from a nested readers", () => {
@@ -287,6 +303,6 @@ describe("coroutine", () => {
       }
     });
 
-    return expect(r.run()).rejects.toBe(err);
+    return expect(r().run()).rejects.toBe(err);
   });
 });
