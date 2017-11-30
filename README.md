@@ -1,14 +1,54 @@
-asyncReader
+async-reader
 ===========
 
 [![Build Status](https://travis-ci.org/davazp/async-reader.svg?branch=master)](https://travis-ci.org/davazp/async-reader)
 
+async-reader is a library to deal with asynchronous *readers*:
+computations with access to some read-only context.
+
+**This is package is experimental and it is under active development. Expect backward-incompatible changes**
+
+## Introduction
+
+You define *readers* by chaining them with other readers:
+
+```javascript
+const {ask} = require('async-reader')
+
+const getVersion = ask.then(context => context.version)
+
+function f () {
+  return getVersion.then(version=>{
+    if (version === 1){
+      console.log('hello')
+    } else {
+      console.log('bye')
+    }
+
+    return version
+  })
+}
+```
+
+the `ask` reader is a built-in reader that just returns the whole
+context. You can define a derived reader by calling `.then`, which
+will be called with the return value of the previuos reader.
+
+If you return a *Promise* or another *Reader*, the resolved value of
+those will be passed to the next reader.
+
+Finallhy, you can provide the context to the function at the top of
+your stack:
+
+
+```javascript
+f().run({version: 2})
+```
+
 ## Installation
 
-## Changes
+You can install this package with
 
-## API
-
-## Notes
-
-## Contributing
+```shell
+npm install async-reader
+```
