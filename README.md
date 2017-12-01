@@ -13,21 +13,21 @@ computations with access to some read-only context.
 You define *readers* by chaining them with other readers:
 
 ```javascript
-const {ask} = require('async-reader')
+const {ask, coroutine} = require('async-reader')
 
 const getVersion = ask.then(context => context.version)
 
-function f () {
-  return getVersion.then(version=>{
-    if (version === 1){
-      console.log('hello')
-    } else {
-      console.log('bye')
-    }
+const f = coroutine(function*(){
+  const version = yield getVersion
 
-    return version
-  })
-}
+  if (version === 1){
+    console.log('hello')
+  } else {
+    console.log('bye')
+  }
+
+  return version
+})
 ```
 
 the `ask` reader is a built-in reader that just returns the whole
@@ -40,10 +40,12 @@ those will be passed to the next reader.
 Finallhy, you can provide the context to the function at the top of
 your stack:
 
-
 ```javascript
 f().run({version: 2})
 ```
+
+For a more insightful introduction, [please the tutorial](./TUTORIAL.md)
+
 
 ## Installation
 
