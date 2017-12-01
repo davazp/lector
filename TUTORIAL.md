@@ -94,14 +94,14 @@ becomes:
 const greet = name => {
   return getLanguage.then(language=>{
     switch (language) {
-        case 'en':
-          return `Hi ${name}!`
-        case 'es':
-          return `Hola ${name}!`
-        default:
-          return `${name}!`
-      } 
-    })
+      case 'en':
+        return `Hi ${name}!`
+      case 'es':
+        return `Hola ${name}!`
+      default:
+        return `${name}!`
+    } 
+  })
 }
 ```
 
@@ -113,3 +113,103 @@ Of course this is not magic. In the naive approach, we would add a
 but we have traded it for a different return type, *a reader*
 everywhere. But having the reader as an abstraction allow us to attach
 extra functionality to them, making them a bit more implicit.
+
+
+There is still some limitation in this approach:
+
+```javascript
+const greet = name => {
+  return getLanguage.then(language=>{
+    //
+    // What if we need some other configuration in here?
+    // ^^^
+  }) 
+}
+```
+
+again, as with promises, we can just return a new Reader from within
+the .then function:
+
+```javascript
+const greet = name => {
+  return getLanguage.then(language=>{
+    return getUserPreferences().then(preferences=>{
+      if (preferences.greet){
+         // ....
+      }
+    })
+  }) 
+}
+```
+
+
+## Similarity with promises
+
+You should have noticed by now that readers are pretty similar to
+promises. They both wrapped a value, and you have a `.then` method to
+derive new instances from old ones.  There are other types with this
+structure, we refer to all of them as *monads*.
+
+We can exploit the similarity with Promises a little bit.  In the
+previous example, you saw how we were forced to nest our readers
+within another readers. This makes code unnecessarily hard to read. 
+
+In Javascript, promises improved this nested over callbacks, but it
+was still definitely a problem until the `async/await` syntax was
+introduced.
+
+Unfortuantely, the `async/await` syntax works only with promises, not
+with any monad, but there is a more general functionality that was
+used to simulate the same behaviour before async functions that we can
+use: *generators*.
+
+Using generators and the `coroutine` function from `async-reader`, we
+can rewrite our last example like:
+
+```javascript
+const greet = coroutine(function*(name){
+  const language = yield getLanguage
+  const preferences = yield getUserPreferences()
+
+  if (preferences.greet){
+    // ....
+  }
+})
+```
+
+making our code structure flatter, improving then the readability.
+
+
+## Hiding parts of the context
+
+Note a few of important points:
+
+  - You don't need access to the *Reader* class to call a function
+    that returns a reader.
+
+  - If you *have access to Reader*, you have access to the *whole*
+    context, not just part of it.
+
+You can use this to build a collection of useful functions that give
+you readers for different parts of the context and hiding the Reader
+class.
+
+For example, if you just export the `getLanguage` and, let's say,
+`getVersion` functions from a module, all the built abstractions in
+the application can only access those piece of information, even if
+the context can potentially contain much more.
+
+The benefit is, accessing new pieces of information now is as easy as
+exporting a new reader, and letting any function to use it. So you
+don't need to change all your stack of functions to add an extra
+argument.
+
+## Finishing
+
+Organizing your code like this, building functions that return readers
+on top of other functions that return readers, allow us to write in a
+very familiar way code that have implicit access to a *context*.
+
+Calling the top function of this pile will give you a reader, and then
+you will have to call the `.run()` method to pass the context, but you
+will only have to do that in a single place.
