@@ -71,3 +71,11 @@ test("resolve nested readers properly", () => {
 
   return expect(f3().run()).rejects.toBe(err);
 });
+
+test(".run should never throw an exception", () => {
+  const err = new Error(`foo`);
+  const r = new Reader(_ => {
+    throw err;
+  });
+  expect(r.run()).rejects.toBe(err);
+});

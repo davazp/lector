@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `.run()` won't throw an exception, even if if the function passed to
+  the Reader constructor does.
+
 ## 0.1.0 - 2017-11-30
 
 ### Added
