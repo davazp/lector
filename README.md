@@ -32,19 +32,19 @@ const f = coroutine(function*(){
 
 the `ask` reader is a built-in reader that just returns the whole
 context. You can define a derived reader by calling `.then`, which
-will be called with the return value of the previuos reader.
+will be called with the return value of the previous reader.
 
 If you return a *Promise* or another *Reader*, the resolved value of
 those will be passed to the next reader.
 
-Finallhy, you can provide the context to the function at the top of
+Finally, you can provide the context to the function at the top of
 your stack:
 
 ```javascript
 f().run({version: 2})
 ```
 
-For a more insightful introduction, [please the tutorial](./TUTORIAL.md)
+For a more insightful introduction, [please the tutorial](./TUTORIAL.md).
 
 
 ## Installation
