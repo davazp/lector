@@ -5,7 +5,7 @@ async-reader Tutorial
 
 If you have adopted a (almost) *purely functional* approach in
 Javascript, weather it was a choice or a requirement of the
-techonology you use, you will find some restrictions in how you can
+technology you use, you will find some restrictions in how you can
 write your code
 
 Let's say you have a function that return the current user, like the
