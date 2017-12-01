@@ -4,9 +4,9 @@ async-reader Tutorial
 ## The problem
 
 If you have adopted a (almost) *purely functional* approach in
-Javascript, weather it was a choice or a requirement of the
-technology you use, you will find some restrictions in how you can
-write your code
+Javascript, whether it was a choice or a requirement of the technology
+you use, you will find some restrictions on how you can write your
+code
 
 Let's say you have a function that return the current user, like the
 below
@@ -33,11 +33,10 @@ argument to it. Not only that, every function that called
 have to add this argument to them as well, and to all the pile of
 functions on top of them.
 
-This explicitness is usually desirable, but you can imagine how for
-some information as configuration is problematic, as potentially every
-piece of the system could depend on the configuration, so you could
-end up with adding a config argument to every function in your
-application.
+This explicitness is usually desirable, but you can imagine how this
+could be problematic for configuration, as potentially every piece of
+the system could depend on the configuration, so you could end up with
+adding a config argument to every function in your application.
 
 
 ## Asynchronous readers
@@ -56,8 +55,8 @@ const getLanguage = new Reader(context => {
 })
 ```
 
-Wrapping the function with in the Reader allows us to attach methods
-to operate with this function.
+Wrapping the function with the Reader allows us to attach methods to
+operate with this function.
 
 ## Composing readers
 
@@ -81,7 +80,7 @@ const greet = name => {
 }
 ```
 
-The `.run` method allow us to execute the wrapped function with a
+The `.run` method allows us to execute the wrapped function with a
 provided configuration.
 
 At this point is when we can take benefit of the wrapper *Reader*
@@ -108,11 +107,11 @@ const greet = name => {
 Now, something important happened: *config* does not appear in the
 definition of `greet` anymore.
 
-Of course this is not magic. In the naive approach, we would add a
+Of course, this is not magic. In the naive approach, we would add a
 `config` argument to `greet`. Now we don't need that extra argument,
 but we have traded it for a different return type, *a reader*
-everywhere. But having the reader as an abstraction allow us to attach
-extra functionality to them, making them a bit more implicit.
+everywhere. But having the reader as an abstraction allows us to
+attach extra functionality to them, making them a bit more implicit.
 
 
 There is still some limitation in this approach:
@@ -152,13 +151,13 @@ structure, we refer to all of them as *monads*.
 
 We can exploit the similarity with Promises a little bit.  In the
 previous example, you saw how we were forced to nest our readers
-within another readers. This makes code unnecessarily hard to read. 
+within other readers. This makes the code unnecessarily hard to read.
 
 In Javascript, promises improved this nested over callbacks, but it
 was still definitely a problem until the `async/await` syntax was
 introduced.
 
-Unfortuantely, the `async/await` syntax works only with promises, not
+Unfortunately, the `async/await` syntax works only with promises, not
 with any monad, but there is a more general functionality that was
 used to simulate the same behaviour before async functions that we can
 use: *generators*.
@@ -177,12 +176,13 @@ const greet = coroutine(function*(name){
 })
 ```
 
-making our code structure flatter, improving then the readability.
+making our code structure flatter, then improving then the
+readability.
 
 
 ## Hiding parts of the context
 
-Note a few of important points:
+Note a few important points:
 
   - You don't need access to the *Reader* class to call a function
     that returns a reader.
@@ -196,7 +196,7 @@ class.
 
 For example, if you just export the `getLanguage` and, let's say,
 `getVersion` functions from a module, all the built abstractions in
-the application can only access those piece of information, even if
+the application can only access those pieces of information, even if
 the context can potentially contain much more.
 
 The benefit is, accessing new pieces of information now is as easy as
