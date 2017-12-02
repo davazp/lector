@@ -44,7 +44,7 @@ adding a config argument to every function in your application.
 *Readers* originated in the purely functional languages as a method to
 alliviate this.
 
-First, let's reconigze that we try to build computations that depend
+First, let's recognize that we try to build computations that depend
 on a context. We also want those computations to be asynchronous for
 convenience in Javascript, so we just define *Reader* as a class that
 wraps functions of the form `Context -> Promise<value>`:
