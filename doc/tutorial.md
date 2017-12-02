@@ -3,13 +3,12 @@ async-reader Tutorial
 
 ## The problem
 
-If you have adopted a (almost) *purely functional* approach in
+If you have adopted a *mostly functional* approach in
 Javascript, whether it was a choice or a requirement of the technology
 you use, you will find some restrictions on how you can write your
-code
+code.
 
-Let's say you have a function that return the current user, like the
-below
+Let's say you have a function that returns the current user, like below
 
 ```javascript
 const config = {
@@ -87,7 +86,7 @@ At this point is when we can take benefit of the wrapper *Reader*
 class, and define some methods to make this easier. Similarly to
 promises, we can use the `.then` method to build a new reader, as a
 function of the returned value of another reader. So our example
-becomes:
+becomes
 
 ```javascript
 const greet = name => {
@@ -114,7 +113,7 @@ everywhere. But having the reader as an abstraction allows us to
 attach extra functionality to them, making them a bit more implicit.
 
 
-There is still some limitation in this approach:
+There is still some limitation in this approach
 
 ```javascript
 const greet = name => {
@@ -163,7 +162,7 @@ used to simulate the same behaviour before async functions that we can
 use: *generators*.
 
 Using generators and the `coroutine` function from `async-reader`, we
-can rewrite our last example like:
+can rewrite our last example like
 
 ```javascript
 const greet = coroutine(function*(name){
@@ -176,8 +175,7 @@ const greet = coroutine(function*(name){
 })
 ```
 
-making our code structure flatter, then improving then the
-readability.
+making our code structure flatter, then improving the readability.
 
 
 ## Hiding parts of the context

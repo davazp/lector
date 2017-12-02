@@ -4,7 +4,7 @@ Using async-reader with React & Redux
 **This document is work-in-progress**
 
 Many web applications are built using [React](https://reactjs.org/)
-and [Redux](https://github.com/reactjs/react-redux), an approach
+and [Redux](https://github.com/reactjs/react-redux), an approach that
 encourages a functional style. Some parts of the application will be
 completely pure and will not depend on the state, but many others
 will.
@@ -27,7 +27,7 @@ case. `async-reader` provides the same implicit context functionality
 for non-react code.
 
 
-The `async-reader` library:
+The `async-reader` library
 
 ```javascript
 // async-reader/react
@@ -50,7 +50,7 @@ export const state = store.then(store => store.getState())
 ```
 
 
-Your API layer:
+Your API layer
 ```javascript
 import {state,  dispatch} from 'async-reader/redux'
 
@@ -83,7 +83,7 @@ export const fetchProduct = coroutine(function*(id){
 At the very end, you will have to pass the store somehow to your API
 layer, of course. In React, as we mentioned, your components already
 have access to the store thanks to `react-redux`. We can take benefit
-of this to integrate your API layer into your components:
+of this to integrate your API layer into your components
 
 ```javascript
 import {fetchProdut} from './api'

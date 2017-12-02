@@ -6,7 +6,7 @@ async-reader
 async-reader is a library to deal with asynchronous *readers*:
 computations with access to some read-only context.
 
-**This is package is experimental and it is under active development. Expect backward-incompatible changes**
+**This package is experimental and it is under active development. Expect backward-incompatible changes**.
 
 ## [Introduction to async-readers](./doc/tutorial.md)
 ## [Using async-reader with React and Redux](./doc/react-redux-integration.md)
@@ -21,7 +21,7 @@ npm install async-reader
 
 ## Overview
 
-You define *readers* by chaining them with other readers:
+You define *readers* by chaining them with other readers
 
 ```javascript
 const {ask, coroutine} = require('async-reader')
@@ -41,7 +41,7 @@ const f = coroutine(function*(){
 })
 ```
 
-the `ask` reader is a built-in reader that just returns the whole
+The `ask` reader is a built-in reader that just returns the whole
 context. You can define a derived reader by calling `.then`, which
 will be called with the return value of the previous reader.
 
