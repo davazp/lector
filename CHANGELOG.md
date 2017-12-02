@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - A tutorial
+- Documentation about how to integrate with react and redux
 
 ### Fixed
 
