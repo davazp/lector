@@ -90,7 +90,7 @@ import {fetchProdut} from './api'
 import { withReaders } from 'async-readers/react-redux'
 
 const RefreshProduct = ({id, fetchProduct}) => {
-  return <button onClick={fetchProduct(id)}></button>
+  return <button onClick={fetchProduct(id)} />
 }
 
 export default withReaders({fetchProduct})(RefreshProduct)
