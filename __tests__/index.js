@@ -80,6 +80,20 @@ test(".run should never throw an exception", () => {
   expect(r.run()).rejects.toBe(err);
 });
 
+test("new Reader throws an exception if its argument is not a function", () => {
+  function f() {
+    return new Reader(3);
+  }
+  expect(f).toThrow(TypeError);
+});
+
+test(".then throws an exception if its argument is not a function", () => {
+  function f() {
+    return ask.then(3);
+  }
+  expect(f).toThrow(TypeError);
+});
+
 describe("Reader.props", () => {
   test("return a reader", () => {
     const r = Reader.props();

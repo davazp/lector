@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `.run()` won't throw an exception, even if if the function passed to
   the Reader constructor does.
 
+- `new Reader()` and `.then()` throw a `TypeError` if their argument
+  is not a function.
+
 ## 0.1.0 - 2017-11-30
 
 ### Added
