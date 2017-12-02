@@ -79,3 +79,88 @@ test(".run should never throw an exception", () => {
   });
   expect(r.run()).rejects.toBe(err);
 });
+
+describe("Reader.props", () => {
+  test("return a reader", () => {
+    const r = Reader.props();
+    expect(r).toBeInstanceOf(Reader);
+  });
+
+  test("resolves into a fresh object", () => {
+    const obj = {};
+    const r = Reader.props(obj);
+    return expect(r.run()).resolves.not.toBe(obj);
+  });
+
+  test("non-reader property values are copied to the resulting object", () => {
+    const x = { x: 1 };
+    const obj = { value: x };
+    const r = Reader.props(obj);
+    return r.run().then(result => {
+      expect(result.value).toBe(x);
+    });
+  });
+
+  test("reader property values should be resolved", () => {
+    const obj = { value: Reader.of(42) };
+    const r = Reader.props(obj);
+    return expect(r.run()).resolves.toEqual({ value: 42 });
+  });
+
+  test("reader property values should be resolved even if they are asynchronous", () => {
+    const obj = { value: Promise.resolve(42) };
+    const r = Reader.props(obj);
+    return expect(r.run()).resolves.toEqual({ value: 42 });
+  });
+
+  test("All readers should be executed concurrently", () => {
+    let n = 0;
+
+    const r = new Reader(() => {
+      setTimeout(() => {
+        n = 0;
+      });
+      return n++;
+    });
+
+    const reader = Reader.props({
+      r1: r,
+      r2: r
+    });
+
+    return expect(reader.run()).resolves.toEqual({
+      r1: 0,
+      r2: 1
+    });
+  });
+
+  test("The reader will be rejected if one of the property value readers fails", () => {
+    const err = new Error("foo");
+    const r = Reader.props({
+      x: 10,
+      y: Promise.reject(err)
+    });
+    return expect(r.run()).rejects.toBe(err);
+  });
+
+  test("The reader will be rejected with the first reader that fails", () => {
+    const err1 = new Error("reader1");
+    const err2 = new Error("reader1");
+
+    const p1 = Promise.reject(err1);
+    const p2 = Promise.delay(10).throw(err2);
+
+    const r = Reader.props({
+      x: p1,
+      y: p2
+    });
+
+    const p1ready = p1.catch(() => null);
+    const p2ready = p2.catch(() => null);
+
+    // Wait until both promises are actually resolved
+    return Promise.all([p1ready, p2ready]).then(() => {
+      return expect(r.run()).rejects.toBe(err1);
+    });
+  });
+});
