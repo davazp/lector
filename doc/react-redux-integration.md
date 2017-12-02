@@ -102,4 +102,4 @@ much*. It is usually a best design not to have too much state /
 context in the first place.
 
 For further information about the concepts behind `async-reader`,
-please read the [tutorial](./TUTORIAL.md).
+please read the [tutorial](./tutorial.md).
