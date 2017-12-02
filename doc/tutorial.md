@@ -8,7 +8,8 @@ Javascript, whether it was a choice or a requirement of the technology
 you use, you will find some restrictions on how you can write your
 code.
 
-Let's say you have a function that returns the current user, like below
+Let's say you have a function that returns the language for the
+current user, like below
 
 ```javascript
 const config = {
