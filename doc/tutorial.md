@@ -26,9 +26,9 @@ Suppose now that configuration is no longer constant. For example, you
 could want to process this in requests in a server, and each user has
 a different configuration.
 
-As a pure function, `getLanguage` will have to return the value every
-time you call it, as it has no arguments. So we have to add a `config`
-argument to it. Not only that, every function that called
+As a pure function, `getLanguage` will have to return the *same* value
+every time you call it, as it has no arguments. So we have to add a
+`config` argument to it. Not only that, every function that called
 `getLanguage` need to have that configuration to pass it, or we will
 have to add this argument to them as well, and to all the pile of
 functions on top of them.
