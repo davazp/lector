@@ -1,5 +1,5 @@
-async-reader with React & Redux
-===============================
+Using async-reader with React & Redux
+=====================================
 
 **This document is work-in-progress**
 
