@@ -145,7 +145,7 @@ const greet = name => {
 ## Similarity with promises
 
 You should have noticed by now that readers are pretty similar to
-promises. They both wrapped a value, and you have a `.then` method to
+promises. They both wrap a value, and you have a `.then` method to
 derive new instances from old ones.  There are other types with this
 structure, we refer to all of them as *monads*.
 
@@ -153,9 +153,9 @@ We can exploit the similarity with Promises a little bit.  In the
 previous example, you saw how we were forced to nest our readers
 within other readers. This makes the code unnecessarily hard to read.
 
-In Javascript, promises improved this nested over callbacks, but it
-was still definitely a problem until the `async/await` syntax was
-introduced.
+In Javascript, promises came to improve the situation over callbacks,
+but they still required some nesting. It was still a problem until the
+`async/await` syntax was introduced.
 
 Unfortunately, the `async/await` syntax works only with promises, not
 with any monad, but there is a more general functionality that was
