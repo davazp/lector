@@ -213,3 +213,8 @@ very familiar way code that have implicit access to a *context*.
 Calling the top function of this pile will give you a reader, and then
 you will have to call the `.run()` method to pass the context, but you
 will only have to do that in a single place.
+
+Finally, the goal of this library is easing sharing some context
+implicitly across many functions in your application, but *you should
+not abuse this too much*. It is usually a best design not to have too
+much state / context in the first place.

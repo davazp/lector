@@ -8,7 +8,18 @@ computations with access to some read-only context.
 
 **This is package is experimental and it is under active development. Expect backward-incompatible changes**
 
-## Introduction
+## [Introduction to async-readers](./doc/tutorial.md)
+## [Using async-reader with React and Redux](./doc/react-redux-integration.md)
+
+## Installation
+
+You can install this package with
+
+```shell
+npm install async-reader
+```
+
+## Overview
 
 You define *readers* by chaining them with other readers:
 
@@ -42,15 +53,4 @@ your stack:
 
 ```javascript
 f().run({version: 2})
-```
-
-For a more insightful introduction, [please the tutorial](./TUTORIAL.md).
-
-
-## Installation
-
-You can install this package with
-
-```shell
-npm install async-reader
 ```
