@@ -13,12 +13,12 @@ current user, like below
 
 ```javascript
 const config = {
-  language: 'es'
-}
+  language: "es"
+};
 
 // Return current language
-function getLanguage () {
-  return config.language
+function getLanguage() {
+  return config.language;
 }
 ```
 
@@ -51,8 +51,8 @@ wraps functions of the form `Context -> Promise<value>`:
 
 ```javascript
 const getLanguage = new Reader(context => {
-  return Promise.resolve(context.currentLanguage)
-})
+  return Promise.resolve(context.currentLanguage);
+});
 ```
 
 Wrapping the function with the Reader allows us to attach methods to
@@ -66,18 +66,18 @@ on the current language. You could write that like
 ```javascript
 const greet = name => {
   return new Reader(context => {
-    return getLanguage.run(context).then(language=>{
+    return getLanguage.run(context).then(language => {
       switch (language) {
-        case 'en':
-          return `Hi ${name}!`
-        case 'es':
-          return `Hola ${name}!`
+        case "en":
+          return `Hi ${name}!`;
+        case "es":
+          return `Hola ${name}!`;
         default:
-          return `${name}!`
-      } 
-    })
-  })
-}
+          return `${name}!`;
+      }
+    });
+  });
+};
 ```
 
 The `.run` method allows us to execute the wrapped function with a
@@ -91,17 +91,17 @@ becomes
 
 ```javascript
 const greet = name => {
-  return getLanguage.then(language=>{
+  return getLanguage.then(language => {
     switch (language) {
-      case 'en':
-        return `Hi ${name}!`
-      case 'es':
-        return `Hola ${name}!`
+      case "en":
+        return `Hi ${name}!`;
+      case "es":
+        return `Hola ${name}!`;
       default:
-        return `${name}!`
-    } 
-  })
-}
+        return `${name}!`;
+    }
+  });
+};
 ```
 
 Now, something important happened: *config* does not appear in the
@@ -118,12 +118,12 @@ There is still some limitation in this approach
 
 ```javascript
 const greet = name => {
-  return getLanguage.then(language=>{
+  return getLanguage.then(language => {
     //
     // What if we need some other configuration in here?
     // ^^^
-  }) 
-}
+  });
+};
 ```
 
 again, as with promises, we can just return a new Reader from within
@@ -131,14 +131,14 @@ the .then function:
 
 ```javascript
 const greet = name => {
-  return getLanguage.then(language=>{
-    return getUserPreferences().then(preferences=>{
-      if (preferences.greet){
-         // ....
+  return getLanguage.then(language => {
+    return getUserPreferences().then(preferences => {
+      if (preferences.greet) {
+        // ....
       }
-    })
-  }) 
-}
+    });
+  });
+};
 ```
 
 

@@ -32,51 +32,51 @@ The `async-reader` library
 ```javascript
 // async-reader/react
 
-import {ask} from 'async-reader'
+import { ask } from "async-reader";
 
 // The main context is the store
-export const store = ask
+export const store = ask;
 
 // The dispatch function defers the action until
 // the reader is executed with a specific store.
-export const dispatch = (action) => {
+export const dispatch = action => {
   return ask.then(store => {
-    store.dispatch(action)
-  })
-}
+    store.dispatch(action);
+  });
+};
 
 // The state reader
-export const state = store.then(store => store.getState())
+export const state = store.then(store => store.getState());
 ```
 
 
 Your API layer
 ```javascript
-import {state,  dispatch} from 'async-reader/redux'
+import { state, dispatch } from "async-reader/redux";
 
-const debugMode = state.prop('debugMode')
+const debugMode = state.prop("debugMode");
 
-const request = coroutine(function*(uri, options){
-  const debug = yield debugMode
+const request = coroutine(function*(uri, options) {
+  const debug = yield debugMode;
 
-  const extraHeaders = debug? {"X-DEBUG": "true"}: {}
+  const extraHeaders = debug ? { "X-DEBUG": "true" } : {};
 
   const effectiveOptions = {
     ...options,
     headers: {
       ...options.headers,
       ...extraHeaders
-    } 
-  }
+    }
+  };
 
-  return fetch(uri, options)
-})
+  return fetch(uri, options);
+});
 
-export const fetchProduct = coroutine(function*(id){
-  const product = yield request(`/api/product/{id}`)
-  yield dispatch({type: UPDATE_PRODUCT, payload: product})
-  return product
-})
+export const fetchProduct = coroutine(function*(id) {
+  const product = yield request(`/api/product/{id}`);
+  yield dispatch({ type: UPDATE_PRODUCT, payload: product });
+  return product;
+});
 ```
 
 
@@ -86,14 +86,14 @@ have access to the store thanks to `react-redux`. We can take benefit
 of this to integrate your API layer into your components
 
 ```javascript
-import {fetchProdut} from './api'
-import { withReaders } from 'async-readers/react-redux'
+import { fetchProdut } from "./api";
+import { withReaders } from "async-readers/react-redux";
 
-const RefreshProduct = ({id, fetchProduct}) => {
-  return <button onClick={fetchProduct(id)} />
-}
+const RefreshProduct = ({ id, fetchProduct }) => {
+  return <button onClick={fetchProduct(id)} />;
+};
 
-export default withReaders({fetchProduct})(RefreshProduct)
+export default withReaders({ fetchProduct })(RefreshProduct);
 ```
 
 Remember, this library eases sharing some context implicitly across
