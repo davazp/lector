@@ -1,6 +1,5 @@
-const Promise = require("bluebird");
-const Reader = require("../");
-const { ask, coroutine } = Reader;
+import Promise from "bluebird";
+import Reader, { ask, coroutine } from "../lib";
 
 test("it builds a proper reader", () => {
   const r = coroutine(function*() {

@@ -1,6 +1,5 @@
-const Promise = require("bluebird");
-const Reader = require("../");
-const { ask } = Reader;
+import Promise from "bluebird";
+import Reader, { ask } from "../lib";
 
 test("identity reader returns the context", () => {
   return ask.run({ x: 10 }).then(result => {
