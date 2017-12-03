@@ -24,21 +24,21 @@ npm install async-reader
 You define *readers* by chaining them with other readers
 
 ```javascript
-const {ask, coroutine} = require('async-reader')
+import { ask, coroutine } from "async-reader";
 
-const getVersion = ask.then(context => context.version)
+const getVersion = ask.then(context => context.version);
 
-const f = coroutine(function*(){
-  const version = yield getVersion
+const f = coroutine(function*() {
+  const version = yield getVersion;
 
-  if (version === 1){
-    console.log('hello')
+  if (version === 1) {
+    console.log("hello");
   } else {
-    console.log('bye')
+    console.log("bye");
   }
 
-  return version
-})
+  return version;
+});
 ```
 
 The `ask` reader is a built-in reader that just returns the whole
