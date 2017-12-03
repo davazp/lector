@@ -2,30 +2,17 @@
   "name": "async-reader",
   "version": "0.1.0",
   "description": "Contextual asynchronous library for Javascript",
-  "main": "dist/index.js",
-  "module": "lib/index.js",
+  "private": true,
   "scripts": {
-    "build": "babel lib -d dist/",
     "lint": "eslint .",
     "test": "npm run lint && jest",
-    "prepare": "npm run build",
     "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,json,css}": ["prettier --write", "git add"]
   },
-  "engines": {
-    "node": ">=6.4.0"
-  },
-  "files": ["dist/", "lib/"],
-  "keywords": ["reader", "monad", "context", "coroutine", "promises"],
-  "repository": "github:davazp/async-reader",
-  "author": {
-    "name": "David Vázquez Púa",
-    "email": "davazp@gmail.com",
-    "url": "https://github.com/davazp/"
-  },
   "license": "MIT",
+  "workspaces": ["packages/*"],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -35,6 +22,7 @@
     "eslint-plugin-prettier": "2.3.1",
     "husky": "^0.14.3",
     "jest": "^21.2.1",
+    "lerna": "^2.5.1",
     "lint-staged": "^5.0.0",
     "prettier": "1.8.2"
   }

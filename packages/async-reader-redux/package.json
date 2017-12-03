@@ -1,0 +1,12 @@
+{
+  "name": "async-reader-redux",
+  "version": "0.1.0",
+  "description": "Integrate async-reader with Redux",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
+  }
+}

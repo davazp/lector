@@ -1,4 +1,6 @@
-/package-lock.json
-/node_modules
 /coverage
-/dist
+node_modules
+lerna-debug.log
+dist
+yarn.lock
+package-lock.json
