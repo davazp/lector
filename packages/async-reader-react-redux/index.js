@@ -1,17 +1,6 @@
-const Reader = require(".");
-const { ask } = Reader;
-const { connectAdvanced } = require("react-redux");
+import { connectAdvanced } from "react-redux";
 
-// Reader creators
-
-const getState = ask.prop("state");
-const getDispatch = ask.prop("dispatch");
-
-function dispatch(action) {
-  return getDispatch.then(dispatch => dispatch(action));
-}
-
-// Connect reader creators with React components
+import Reader from "async-reader";
 
 function mapValues(object, fn) {
   const result = {};
@@ -27,7 +16,7 @@ function mapValues(object, fn) {
 function createReaderSelectors(object, dispatch) {
   return mapValues(object, fn => {
     return state => {
-      const context = { getState: () => state, dispatch };
+      const context = { state, dispatch };
       return function() {
         const result = fn.apply(object, arguments);
         if (result instanceof Reader) {
@@ -46,8 +35,4 @@ function withReaders(object) {
   });
 }
 
-module.exports = {
-  withReaders,
-  getState,
-  dispatch
-};
+export { withReaders };

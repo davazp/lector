@@ -2,11 +2,24 @@
   "name": "async-reader-redux",
   "version": "0.1.0",
   "description": "Integrate async-reader with Redux",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "lib/index.js",
   "license": "MIT",
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-redux": "^5.0.6",
+  "keywords": ["async-reader", "redux", "context"],
+  "scripts": {
+    "build": "babel lib/ -d dist/",
+    "prepare": "npm run build"
+  },
+  "peerDependencies": {
+    "async-reader": "^0.1.0",
+    "redux": "^3.7.2"
+  },
+  "author": {
+    "name": "David Vázquez Púa",
+    "email": "davazp@gmail.com",
+    "url": "https://github.com/davazp/"
+  },
+  "devDependencies": {
     "redux": "^3.7.2"
   }
 }

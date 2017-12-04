@@ -1,0 +1,11 @@
+{
+  "name": "async-reader-react-redux",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "async-reader": "^0.1.0",
+    "async-reader-redux": "^0.1.0",
+    "react-redux": "^5.0.6"
+  }
+}

@@ -4,17 +4,14 @@
   "description": "Contextual asynchronous library for Javascript",
   "main": "index.js",
   "license": "MIT",
-  "engines": {
-    "node": ">=6.4.0"
-  },
   "scripts": {
     "build": "babel lib -d dist/",
     "prepare": "npm run build"
   },
   "files": ["dist/", "lib/"],
   "main": "dist/index.js",
-  "keywords": ["reader", "monad", "context", "coroutine", "promises"],
   "module": "lib/index.js",
+  "keywords": ["reader", "monad", "context", "coroutine", "promises"],
   "repository": "github:davazp/async-reader",
   "author": {
     "name": "David Vázquez Púa",
