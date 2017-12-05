@@ -18,8 +18,5 @@
     "name": "David Vázquez Púa",
     "email": "davazp@gmail.com",
     "url": "https://github.com/davazp/"
-  },
-  "devDependencies": {
-    "redux": "^3.7.2"
   }
 }
