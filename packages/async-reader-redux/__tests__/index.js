@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import { getState } from "async-reader-redux";
+import { getState } from "../lib/";
 
 const initialState = { a: 10, b: 20 };
 
