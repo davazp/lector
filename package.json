@@ -1,8 +1,9 @@
 {
   "private": true,
   "scripts": {
+    "build": "lerna run build",
     "lint": "eslint .",
-    "test": "npm run lint && jest",
+    "test": "yarn lint && jest",
     "precommit": "lint-staged"
   },
   "lint-staged": {

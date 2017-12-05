@@ -1,6 +1,6 @@
 import { ask } from "async-reader";
 
-const getState = ask.prop("state");
+const getState = ask.then(store => store.getState());
 const getDispatch = ask.prop("dispatch");
 
 function dispatch(action) {
