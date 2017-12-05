@@ -1,11 +1,21 @@
 {
   "name": "async-reader-react-redux",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "lib/index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "babel lib/ -d dist/",
+    "prepare": "npm run build"
+  },
   "peerDependencies": {
     "async-reader": "^0.1.0",
     "async-reader-redux": "^0.1.0",
     "react-redux": "^5.0.6"
+  },
+  "author": {
+    "name": "David Vázquez Púa",
+    "email": "davazp@gmail.com",
+    "url": "https://github.com/davazp/"
   }
 }
