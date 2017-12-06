@@ -1,5 +1,5 @@
 import { connectAdvanced } from "react-redux";
-import Reader from "async-reader";
+import Reader from "lector";
 
 function mapValues(object, fn) {
   const result = {};

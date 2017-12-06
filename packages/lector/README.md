@@ -1,22 +1,22 @@
-async-reader
+lector
 ============
 
-[![Build Status](https://travis-ci.org/davazp/async-reader.svg?branch=master)](https://travis-ci.org/davazp/async-reader)
+[![Build Status](https://travis-ci.org/davazp/lector.svg?branch=master)](https://travis-ci.org/davazp/lector)
 
-async-reader is a library to deal with asynchronous *readers*:
+lector is a library to deal with asynchronous *readers*:
 computations with access to some read-only context.
 
 **This package is experimental and it is under active development. Expect backward-incompatible changes**.
 
-## [Introduction to async-readers](./doc/tutorial.md)
-## [Using async-reader with React and Redux](./doc/react-redux-integration.md)
+## [Introduction to lectors](./doc/tutorial.md)
+## [Using lector with React and Redux](./doc/react-redux-integration.md)
 
 ## Installation
 
 You can install this package with
 
 ```shell
-npm install async-reader
+npm install lector
 ```
 
 ## Overview
@@ -24,7 +24,7 @@ npm install async-reader
 You define *readers* by chaining them with other readers
 
 ```javascript
-import { ask, coroutine } from "async-reader";
+import { ask, coroutine } from "lector";
 
 const getVersion = ask.then(context => context.version);
 

@@ -1,4 +1,4 @@
-async-reader Tutorial
+lector Tutorial
 =====================
 
 ## The problem
@@ -160,7 +160,7 @@ with any monad, but there is a more general functionality that was
 used to simulate the same behaviour before async functions that we can
 use: *generators*.
 
-Using generators and the `coroutine` function from `async-reader`, we
+Using generators and the `coroutine` function from `lector`, we
 can rewrite our last example like
 
 ```javascript

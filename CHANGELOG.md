@@ -14,4 +14,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Documentation about how to integrate with react and redux.
 - `Reader.coroutine` function
 
-[Unreleased]: https://github.com/davazp/async-reader/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/davazp/lector/compare/v0.1.0...HEAD

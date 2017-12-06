@@ -1,5 +1,5 @@
 {
-  "name": "async-reader-react-redux",
+  "name": "lector-react-redux",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "lib/index.js",
@@ -9,8 +9,8 @@
     "prepare": "npm run build"
   },
   "peerDependencies": {
-    "async-reader": "^0.1.0",
-    "async-reader-redux": "^0.1.0",
+    "lector": "^0.1.0",
+    "lector-redux": "^0.1.0",
     "react-redux": "^5.0.6"
   },
   "author": {

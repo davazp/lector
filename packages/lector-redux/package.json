@@ -1,17 +1,17 @@
 {
-  "name": "async-reader-redux",
+  "name": "lector-redux",
   "version": "0.1.0",
-  "description": "Integrate async-reader with Redux",
+  "description": "Integrate lector with Redux",
   "main": "dist/index.js",
   "module": "lib/index.js",
   "license": "MIT",
-  "keywords": ["async-reader", "redux", "context"],
+  "keywords": ["lector", "redux", "context"],
   "scripts": {
     "build": "babel lib/ -d dist/",
     "prepare": "npm run build"
   },
   "peerDependencies": {
-    "async-reader": "^0.1.0",
+    "lector": "^0.1.0",
     "redux": "^3.7.2"
   },
   "author": {

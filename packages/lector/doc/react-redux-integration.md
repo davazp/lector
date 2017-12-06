@@ -1,4 +1,4 @@
-Using async-reader with React & Redux
+Using lector with React & Redux
 =====================================
 
 **This document is work-in-progress**
@@ -23,16 +23,16 @@ subcomponent can access it without having to add a property for it.
 However, not all the code in your application is part of a React
 component. You could want to access the state or dispatch an action in
 your API layer, but `react-redux` can't help us in this
-case. `async-reader` provides the same implicit context functionality
+case. `lector` provides the same implicit context functionality
 for non-react code.
 
 
-The `async-reader` library
+The `lector` library
 
 ```javascript
-// async-reader/react
+// lector/react
 
-import { ask } from "async-reader";
+import { ask } from "lector";
 
 // The main context is the store
 export const store = ask;
@@ -52,7 +52,7 @@ export const state = store.then(store => store.getState());
 
 Your API layer
 ```javascript
-import { state, dispatch } from "async-reader/redux";
+import { state, dispatch } from "lector/redux";
 
 const debugMode = state.prop("debugMode");
 
@@ -87,7 +87,7 @@ of this to integrate your API layer into your components
 
 ```javascript
 import { fetchProdut } from "./api";
-import { withReaders } from "async-readers/react-redux";
+import { withReaders } from "lectors/react-redux";
 
 const RefreshProduct = ({ id, fetchProduct }) => {
   return <button onClick={fetchProduct(id)} />;
@@ -101,5 +101,5 @@ many functions in your application, but *you should not abuse this too
 much*. It is usually a best design not to have too much state /
 context in the first place.
 
-For further information about the concepts behind `async-reader`,
+For further information about the concepts behind `lector`,
 please read the [tutorial](./tutorial.md).
