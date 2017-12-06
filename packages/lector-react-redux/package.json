@@ -9,8 +9,8 @@
     "prepare": "npm run build"
   },
   "peerDependencies": {
-    "lector": "^0.1.0",
-    "lector-redux": "^0.1.0",
+    "lector": "^0.2.0",
+    "lector-redux": "^0.2.0",
     "react-redux": "^5.0.6"
   },
   "author": {
