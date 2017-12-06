@@ -45,10 +45,10 @@ class Reader {
     this.run = run;
   }
 
-  then(fn) {
+  chain(fn) {
     if (typeof fn !== "function") {
       throw new TypeError(
-        "Reader.prototype.then argument must be a function: " + fn
+        "Reader.prototype.chain argument must be a function: " + fn
       );
     }
     return new Reader(context => {
@@ -60,7 +60,7 @@ class Reader {
   // Return a reader that resolves to the property `name` of the
   // resolved value of the current reader.
   prop(name) {
-    return this.then(result => result[name]);
+    return this.chain(result => result[name]);
   }
 
   static of(x) {

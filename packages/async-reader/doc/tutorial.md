@@ -83,13 +83,13 @@ provided configuration.
 
 At this point is when we can take benefit of the wrapper *Reader*
 class, and define some methods to make this easier. Similarly to
-promises, we can use the `.then` method to build a new reader, as a
+promises, we can use the `.chain` method to build a new reader, as a
 function of the returned value of another reader. So our example
 becomes
 
 ```javascript
 const greet = name => {
-  return getLanguage.then(language => {
+  return getLanguage.chain(language => {
     switch (language) {
       case "en":
         return `Hi ${name}!`;
@@ -116,7 +116,7 @@ There is still some limitation in this approach
 
 ```javascript
 const greet = name => {
-  return getLanguage.then(language => {
+  return getLanguage.chain(language => {
     //
     // What if we need some other configuration in here?
     // ^^^
@@ -125,12 +125,12 @@ const greet = name => {
 ```
 
 again, as with promises, we can just return a new Reader from within
-the .then function:
+the .chain function:
 
 ```javascript
 const greet = name => {
-  return getLanguage.then(language => {
-    return getUserPreferences().then(preferences => {
+  return getLanguage.chain(language => {
+    return getUserPreferences().chain(preferences => {
       if (preferences.greet) {
         // ....
       }
@@ -143,7 +143,7 @@ const greet = name => {
 ## Similarity with promises
 
 You should have noticed by now that readers are pretty similar to
-promises. They both wrap a value, and you have a `.then` method to
+promises. They both wrap a value, and you have a `.chain` method to
 derive new instances from old ones.  There are other types with this
 structure, we refer to all of them as *monads*.
 
