@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 
 import { createStore } from "redux";
-import { connect, Provider } from "react-redux";
+import { Provider } from "react-redux";
 
 import { connectReaders } from "../lib";
 
@@ -25,7 +25,7 @@ test("connectReaders won't change literal objects", () => {
   const store = createStore(x => x, {});
 
   const enhance = connectReaders({ x: 10, y: 20 });
-  const Component = enhance(({ x, y }) => {
+  const Component = enhance(({ x }) => {
     return React.createElement("span", {}, x);
   });
 

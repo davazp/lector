@@ -16,72 +16,57 @@ test("reader will resolved to the returned value from the generator function fun
   return expect(result).toBe(20);
 });
 
-test("returned readers in the generator function will be resolved automatically", async () => {
+test("returned readers in the generator function will be resolved automatically", () => {
   const r = Reader.do(function*() {
     return Reader.of("lisp");
   });
-  const result = await r.run();
+  const result = r.run();
   return expect(result).toBe("lisp");
 });
 
-test("yield returns the resolved value of the context", async () => {
+test("yield returns the resolved value of the context", () => {
   const r = Reader.do(function*() {
     const ctx = yield ask;
     return ctx * ctx;
   });
-  const result = await r.run(10);
+  const result = r.run(10);
   return expect(result).toBe(100);
 });
 
-test("can yield a reader created with Reader.of", async () => {
+test("can yield a reader created with Reader.of", () => {
   const r = Reader.do(function*() {
     const value = yield Reader.of(3);
     return value;
   });
-  const result = await r.run();
+  const result = r.run();
   return expect(result).toBe(3);
 });
 
-test("yield will also wait for promises", async () => {
+test("yield can integrate with promises", async () => {
   function getValue() {
     return Promise.resolve(10);
   }
 
   const r = Reader.do(function*() {
     const ctx = yield ask;
-    const value = yield getValue();
-    return ctx * value;
+    return getValue().then(value => ctx * value);
   });
 
   const result = await r.run(10);
   return expect(result).toBe(100);
 });
 
-test("errors in the generator function will reject the promise", () => {
+test("errors in the generator function will throw an exception", () => {
   const err = new Error("foo");
 
   const r = Reader.do(function*() {
     throw err;
   });
 
-  return expect(r.run()).rejects.toBe(err);
+  return expect(r.run).toThrow(err);
 });
 
-test("reject promises will reject the resulting reader promise", async () => {
-  const err = new Error("foo");
-
-  function f() {
-    throw err;
-  }
-
-  const r = Reader.do(function*() {
-    yield f();
-  });
-
-  return expect(r.run()).rejects.toBe(err);
-});
-
-test("errors in the yielded readers will reject the promise", () => {
+test("errors in the yielded readers will throw an exception", () => {
   const err = new Error("foo");
 
   function f() {
@@ -94,111 +79,7 @@ test("errors in the yielded readers will reject the promise", () => {
     yield f();
   });
 
-  return expect(r.run()).rejects.toBe(err);
-});
-
-test("rejected promise in the yielded readers will reject the promise", () => {
-  const err = new Error("foo");
-
-  function f() {
-    return new Reader(_ => Promise.reject(err));
-  }
-
-  const r = Reader.do(function*() {
-    yield f();
-  });
-
-  return expect(r.run()).rejects.toBe(err);
-});
-
-test("errors in readers can be handled", async () => {
-  const err = new Error("foo");
-
-  function f() {
-    return new Reader(_ => Promise.reject(err));
-  }
-
-  const r = Reader.do(function*() {
-    let result;
-    try {
-      yield f();
-      result = 2;
-    } catch (err) {
-      result = 10;
-    }
-    return result;
-  });
-
-  const result = await r.run();
-  return expect(result).toBe(10);
-});
-
-test("yield handles errors from nested readers", async () => {
-  const err = new Error("foo");
-
-  function f() {
-    return new Reader(_ => Promise.reject(err));
-  }
-
-  const r = Reader.do(function*() {
-    let result;
-    try {
-      yield f();
-      result = 2;
-    } catch (err) {
-      result = 10;
-    }
-    return result;
-  });
-
-  const result = await r.run();
-  return expect(result).toBe(10);
-});
-
-test("can catch errors from a returned reader", () => {
-  const err = new Error("foo");
-
-  function f() {
-    return new Reader(_ => Promise.reject(err));
-  }
-
-  const r = Reader.do(function*() {
-    try {
-      return f();
-    } catch (err) {
-      return 1234;
-    }
-  });
-
-  return expect(r.run()).rejects.toBe(err);
-});
-
-test("can catch errors from a nested readers", () => {
-  const err = new Error("foo");
-
-  function f1() {
-    return ask.then(_ => {
-      return Promise.reject(err);
-    });
-  }
-
-  function f2() {
-    return ask.then(() => f1());
-  }
-
-  function f3() {
-    return ask.then(() => f2());
-  }
-
-  const r = Reader.do(function*() {
-    try {
-      return f3();
-    } catch (err) {
-      return 1234;
-    }
-  });
-
-  return expect(r.run()).rejects.toBe(err);
+  return expect(r.run).toThrow(err);
 });
 
 test("Reader.do should throw an error if the argument is not a function", () => {
@@ -208,7 +89,7 @@ test("Reader.do should throw an error if the argument is not a function", () => 
   expect(f).toThrow(TypeError);
 });
 
-test("coroutine converts a generator function into a function creating a reader", async () => {
+test("coroutine converts a generator function into a function creating a reader", () => {
   const f = coroutine(function*(name) {
     const context = yield ask;
     return context[name];
@@ -216,7 +97,7 @@ test("coroutine converts a generator function into a function creating a reader"
 
   expect(f).toBeInstanceOf(Function);
 
-  const result = await f("x").run({ x: 10 });
+  const result = f("x").run({ x: 10 });
 
   expect(result).toBe(10);
 });

@@ -39,19 +39,18 @@ the system could depend on the configuration, so you could end up with
 adding a config argument to every function in your application.
 
 
-## Asynchronous readers
+## Readers
 
 *Readers* originated in the purely functional languages as a method to
 alliviate this.
 
 First, let's recognize that we try to build computations that depend
-on a context. We also want those computations to be asynchronous for
-convenience in Javascript, so we just define *Reader* as a class that
-wraps functions of the form `Context -> Promise<value>`:
+on a context. We will just define *Reader* as a class that wraps
+functions of the form `Context -> value`:
 
 ```javascript
 const getLanguage = new Reader(context => {
-  return Promise.resolve(context.currentLanguage);
+  return context.currentLanguage;
 });
 ```
 
@@ -66,16 +65,15 @@ on the current language. You could write that like
 ```javascript
 const greet = name => {
   return new Reader(context => {
-    return getLanguage.run(context).then(language => {
-      switch (language) {
-        case "en":
-          return `Hi ${name}!`;
-        case "es":
-          return `Hola ${name}!`;
-        default:
-          return `${name}!`;
-      }
-    });
+    const language = getLanguage.run(context)
+    switch (language) {
+      case "en":
+        return `Hi ${name}!`;
+      case "es":
+        return `Hola ${name}!`;
+      default:
+        return `${name}!`;
+    }
   });
 };
 ```
