@@ -40,19 +40,19 @@ export const store = ask;
 // The dispatch function defers the action until
 // the reader is executed with a specific store.
 export const dispatch = action => {
-  return ask.then(store => {
+  return ask.chain(store => {
     store.dispatch(action);
   });
 };
 
 // The state reader
-export const state = store.then(store => store.getState());
+export const state = store.chain(store => store.getState());
 ```
 
 
 Your API layer
 ```javascript
-import { state, dispatch } from "lector/redux";
+import { state, dispatch } from "lector-redux";
 
 const debugMode = state.prop("debugMode");
 
@@ -72,8 +72,8 @@ const request = coroutine(function*(uri, options) {
   return fetch(uri, options);
 });
 
-export const fetchProduct = coroutine(function*(id) {
-  const product = yield request(`/api/product/{id}`);
+export const fetchProduct = coroutine(async function*(id) {
+  const product = await request(`/api/product/{id}`);
   yield dispatch({ type: UPDATE_PRODUCT, payload: product });
   return product;
 });

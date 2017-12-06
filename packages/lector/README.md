@@ -26,7 +26,7 @@ You define *readers* by chaining them with other readers
 ```javascript
 import { ask, coroutine } from "lector";
 
-const getVersion = ask.then(context => context.version);
+const getVersion = ask.chain(context => context.version);
 
 const f = coroutine(function*() {
   const version = yield getVersion;
@@ -42,7 +42,7 @@ const f = coroutine(function*() {
 ```
 
 The `ask` reader is a built-in reader that just returns the whole
-context. You can define a derived reader by calling `.then`, which
+context. You can define a derived reader by calling `.chain`, which
 will be called with the return value of the previous reader.
 
 If you return a *Promise* or another *Reader*, the resolved value of
