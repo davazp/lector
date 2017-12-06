@@ -16,7 +16,8 @@ function reducer(state, action) {
 
 test("getState reader resolves to the state", () => {
   const store = createStore(reducer, initialState);
-  return expect(getState.run(store)).toBe(initialState);
+  const context = { state: store.getState(), dispatch: store.dispatch };
+  return expect(getState.run(context)).toBe(initialState);
 });
 
 // test("dispatch returns a reader that will dispatch the action", async () => {
