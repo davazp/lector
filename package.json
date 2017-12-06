@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run build",
+    "prepare": "yarn build",
     "lint": "eslint .",
     "test": "yarn lint && jest",
     "precommit": "lint-staged"
