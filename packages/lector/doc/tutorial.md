@@ -102,7 +102,7 @@ const greet = name => {
 };
 ```
 
-Now, something important happened: *config* does not appear in the
+Now, something important happened: *context* does not appear in the
 definition of `greet` anymore.
 
 Of course, this is not magic. In the naive approach, we would add a
