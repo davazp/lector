@@ -8,8 +8,8 @@ to some read-only context.
 
 **This package is experimental and it is under active development. Expect backward-incompatible changes**.
 
-## [Introduction to readers](./doc/tutorial.md)
-## [Using lector with React and Redux](./doc/react-redux-integration.md)
+## [Introduction to readers](./packages/lector/doc/tutorial.md)
+## [Using lector with React and Redux](./packages/lector/doc/react-redux-integration.md)
 
 ## Overview
 
