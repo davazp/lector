@@ -1,6 +1,6 @@
 import { ask } from "lector";
 
-const getState = ask.then(store => store.getState());
+const getState = ask.chain(store => store.getState());
 const getDispatch = ask.prop("dispatch");
 
 function dispatch(action) {
