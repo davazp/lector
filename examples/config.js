@@ -1,11 +1,11 @@
 const Promise = require("bluebird");
-const { ask, coroutine } = require("../");
+const { ask, coroutine } = require("lector");
 
 // Basic context
 const config = ask.prop("config");
 
 // Abstract selectors out of the general context
-const userPreferences = config.then(c => {
+const userPreferences = config.chain(c => {
   return Object.assign({ language: "en" }, c);
 });
 
@@ -17,12 +17,11 @@ const translate = key => {
     en: { hello: "hello", bye: "bye" },
     es: { hello: "hola", bye: "adios" }
   };
-  return userLanguage.then(lang => i18n[lang][key]);
+  return userLanguage.chain(lang => i18n[lang][key]);
 };
 
 const main = coroutine(function*() {
   console.log(yield translate("hello"), "!");
-  yield Promise.delay(1000);
   console.log(yield translate("bye"), "!");
 });
 
@@ -36,11 +35,8 @@ const _context2 = {
 };
 
 const test = () => {
-  return main()
-    .run(_context1)
-    .then(() => {
-      main().run(_context2);
-    });
+  main().run(_context1);
+  main().run(_context2);
 };
 
 test();
