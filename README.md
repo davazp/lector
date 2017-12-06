@@ -2,6 +2,7 @@ lector
 ======
 
 [![Build Status](https://travis-ci.org/davazp/lector.svg?branch=master)](https://travis-ci.org/davazp/lector)
+[![npm version](https://badge.fury.io/js/lector.svg)](https://badge.fury.io/js/lector)
 
 *lector* is a library to deal with *readers*: computations with access
 to some read-only context.
