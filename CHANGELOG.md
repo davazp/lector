@@ -8,25 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- First version of the library. Basic `Reader` class and methods
+- Helper method `prop` to get a property of a reader
 - A tutorial.
 - Documentation about how to integrate with react and redux.
-- Implement new helper function `Reader.props`.
-- Add a second npm package `async-reader-redux`.
-
-### Fixed
-
-- `.run()` won't throw an exception, even if if the function passed to
-  the Reader constructor does.
-
-- `new Reader()` and `.then()` throw a `TypeError` if their argument
-  is not a function.
-
-## 0.1.0 - 2017-11-30
-
-### Added
-
-- First version of the library. Basic `Reader` class and methods
-- Implement `Reader.coroutine` function
-- Add helper method `prop` to get a property of a reader
+- `Reader.coroutine` function
 
 [Unreleased]: https://github.com/davazp/async-reader/compare/v0.1.0...HEAD

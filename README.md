@@ -11,14 +11,6 @@ computations with access to some read-only context.
 ## [Introduction to async-readers](./doc/tutorial.md)
 ## [Using async-reader with React and Redux](./doc/react-redux-integration.md)
 
-## Installation
-
-You can install this package with
-
-```shell
-npm install async-reader
-```
-
 ## Overview
 
 You define *readers* by chaining them with other readers
