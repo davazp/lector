@@ -57,6 +57,18 @@ class Reader {
     });
   }
 
+  // Promises
+  then(fn) {
+    return this.chain(promise => {
+      if (!(promise instanceof Promise)) {
+        throw new TypeError(
+          "Used .then on a reader that did not resolved into a promise" + fn
+        );
+      }
+      return promise.then(value => fn(value));
+    });
+  }
+
   // Return a reader that resolves to the property `name` of the
   // resolved value of the current reader.
   prop(name) {

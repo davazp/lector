@@ -49,7 +49,7 @@ test("yield can integrate with promises", async () => {
 
   const r = Reader.do(function*() {
     const ctx = yield ask;
-    return getValue().chain(value => ctx * value);
+    return getValue().then(value => ctx * value);
   });
 
   const result = await r.run(10);

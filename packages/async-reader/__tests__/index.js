@@ -34,7 +34,7 @@ test("integrates with promises", () => {
 
   return f()
     .run(10)
-    .chain(result => {
+    .then(result => {
       expect(result).toBe(100);
     });
 });
