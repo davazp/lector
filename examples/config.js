@@ -1,4 +1,3 @@
-const Promise = require("bluebird");
 const { ask, coroutine } = require("lector");
 
 // Basic context
