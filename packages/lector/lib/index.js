@@ -59,13 +59,19 @@ class Reader {
 
   // Promises
   then(fn) {
+    if (typeof fn !== "function") {
+      throw new TypeError(
+        "Reader.prototype.then argument must be a function: " + fn
+      );
+    }
     return this.chain(promise => {
-      if (!(promise instanceof Promise)) {
+      if (promise && "then" in promise) {
+        return promise.then(value => fn(value));
+      } else {
         throw new TypeError(
           "Used .then on a reader that did not resolved into a promise" + fn
         );
       }
-      return promise.then(value => fn(value));
     });
   }
 

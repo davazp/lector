@@ -39,6 +39,31 @@ test("integrates with promises", () => {
     });
 });
 
+test(".then will throw an error if the argument is not a function", () => {
+  function f() {
+    return ask.then(23);
+  }
+  expect(f).toThrow(TypeError);
+});
+
+test(".then will throw an error when evaluated if the argument is not a promise", () => {
+  const r = ask.then(() => 23);
+  expect(r.run).toThrow(TypeError);
+});
+
+test(".then will return a reader evaluating to chained promise", () => {
+  function f() {
+    return ask.prop("ready").then(x => x + 1);
+  }
+  return f()
+    .run({
+      ready: Promise.resolve(42)
+    })
+    .then(result => {
+      expect(result).toBe(43);
+    });
+});
+
 test("errors in the handlers will throw an exception", () => {
   const err = new Error("foo");
   const r = ask.chain(() => {
