@@ -1,6 +1,6 @@
 {
   "name": "lector-redux",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Integrate lector with Redux",
   "main": "dist/index.js",
   "module": "lib/index.js",
@@ -11,7 +11,7 @@
     "prepare": "npm run build"
   },
   "peerDependencies": {
-    "lector": "^0.2.0",
+    "lector": "^0.2.1",
     "redux": "^3.7.2"
   },
   "author": {

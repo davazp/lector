@@ -1,6 +1,6 @@
 {
   "name": "lector-react-redux",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/index.js",
   "module": "lib/index.js",
   "license": "MIT",
@@ -9,8 +9,8 @@
     "prepare": "npm run build"
   },
   "peerDependencies": {
-    "lector": "^0.2.0",
-    "lector-redux": "^0.2.0",
+    "lector": "^0.2.1",
+    "lector-redux": "^0.2.1",
     "react-redux": "^5.0.6"
   },
   "author": {

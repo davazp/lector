@@ -1,6 +1,6 @@
 {
   "name": "lector",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Contextual asynchronous library for Javascript",
   "main": "dist/index.js",
   "license": "MIT",
