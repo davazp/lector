@@ -12,15 +12,18 @@ function mapValues(object, fn) {
   return result;
 }
 
+const bindReaderFunction = (context, fn) => {
+  return function() {
+    const reader = Reader.of(fn.apply(null, arguments));
+    return reader.run(context);
+  };
+};
+
 const readerSelectorsFactory = object => dispatch => state => {
   return mapValues(object, value => {
     const context = { state, dispatch };
     if (value instanceof Function) {
-      const fn = value;
-      return function() {
-        const reader = Reader.of(fn.apply(null, arguments));
-        return reader.run(context);
-      };
+      return bindReaderFunction(context, value);
     } else {
       return value;
     }
